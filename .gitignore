@@ -86,4 +86,18 @@ lint/intermediates/
 lint/generated/
 lint/outputs/
 lint/tmp/
-# lint/reports/
+lint/reports/
+
+# Firebase
+.idea/
+.DS_Store
+Pods/
+Podfile.lock
+xcuserdata/
+*.xcworkspace/
+GoogleService-Info.plist
+.gradle
+build
+.idea
+*-debug.log
+.firebaserc
