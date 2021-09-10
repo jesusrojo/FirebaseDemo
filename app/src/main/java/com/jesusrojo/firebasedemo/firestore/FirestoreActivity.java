@@ -39,7 +39,7 @@ public class FirestoreActivity extends AppCompatActivity implements
         FilterDialogFragment.FilterListener,
         RestaurantAdapter.OnRestaurantSelectedListener {
 
-    private static final String TAG = "MainActivity";
+    private static final String TAG = "FirestoreActivity";
 
     private static final int RC_SIGN_IN = 9001;
 
