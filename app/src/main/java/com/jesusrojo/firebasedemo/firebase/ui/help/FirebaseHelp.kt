@@ -37,7 +37,7 @@ class FirebaseHelp(
     private lateinit var firebaseDatabase: FirebaseDatabase
     private lateinit var myAdapter: FriendlyMessageAdapter
 
-    private val openDocument = registerForActivityResult(MyOpenDocumentContract()) { uri ->
+    private val openDocument = activity.registerForActivityResult(MyOpenDocumentContract()) { uri ->
         onImageSelected(uri)
     }
 
