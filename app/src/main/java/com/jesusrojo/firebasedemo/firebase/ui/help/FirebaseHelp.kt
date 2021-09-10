@@ -35,7 +35,7 @@ class FirebaseHelp(
     // Firebase instance variables
     private lateinit var firebaseAuth: FirebaseAuth
     private lateinit var firebaseDatabase: FirebaseDatabase
-    private lateinit var friendlyMessageAdapter: FriendlyMessageAdapter
+    private lateinit var myAdapter: FriendlyMessageAdapter
 
     private val openDocument = registerForActivityResult(MyOpenDocumentContract()) { uri ->
         onImageSelected(uri)
@@ -65,17 +65,17 @@ class FirebaseHelp(
         val options = FirebaseRecyclerOptions.Builder<FriendlyMessage>()
             .setQuery(messagesRef, FriendlyMessage::class.java)
             .build()
-        friendlyMessageAdapter = FriendlyMessageAdapter(options, getUserName())
+        myAdapter = FriendlyMessageAdapter(options, getUserName())
         binding.progressBar.visibility = ProgressBar.INVISIBLE
         llManager = LinearLayoutManager(activity)
         llManager.stackFromEnd = true
         binding.messageRecyclerView.layoutManager = llManager
-        binding.messageRecyclerView.adapter = friendlyMessageAdapter
+        binding.messageRecyclerView.adapter = myAdapter
 
         // Scroll down when a new message arrives
         // See MyScrollToBottomObserver for details
-        friendlyMessageAdapter.registerAdapterDataObserver(
-            MyScrollToBottomObserver(binding.messageRecyclerView, friendlyMessageAdapter, llManager)
+        myAdapter.registerAdapterDataObserver(
+            MyScrollToBottomObserver(binding.messageRecyclerView, myAdapter, llManager)
         )
 
         // Disable the send button when there's no text in the input field
@@ -102,9 +102,9 @@ class FirebaseHelp(
 
     fun start() = isNotLoggedGoSignActivity()
 
-    fun pause() = friendlyMessageAdapter.stopListening()
+    fun pause() = myAdapter.stopListening()
 
-    fun resume() = friendlyMessageAdapter.startListening()
+    fun resume() = myAdapter.startListening()
 
     private fun onImageSelected(uri: Uri) {
         Log.d(TAG, "Uri: $uri")

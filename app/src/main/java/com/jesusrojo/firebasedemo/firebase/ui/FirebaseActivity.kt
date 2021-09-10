@@ -8,8 +8,6 @@ import com.jesusrojo.firebasedemo.R
 import com.jesusrojo.firebasedemo.databinding.FirebaseActivityLayoutBinding
 import com.jesusrojo.firebasedemo.firebase.ui.help.FirebaseHelp
 
-
-//https://firebase.google.com/codelabs/firebase-android#1
 class FirebaseActivity : AppCompatActivity() {
 
     private lateinit var firebaseHelp: FirebaseHelp
