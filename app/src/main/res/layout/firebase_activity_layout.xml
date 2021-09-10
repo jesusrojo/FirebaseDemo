@@ -16,7 +16,6 @@
         android:paddingHorizontal="10dp">
 
         <ImageView
-            android:id="@+id/addMessageImageView"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_gravity="center"
@@ -24,20 +23,19 @@
             android:contentDescription="@string/app_name" />
 
         <EditText
-            android:id="@+id/messageEditText"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:layout_margin="10dp"
             android:layout_gravity="center"
             android:padding="10dp"
-            android:background="@drawable/edit_text_shadow"
+            android:textColor="@color/black"
             android:hint="@string/hint_edit_text_firebase"
+            android:textColorHint="@color/teal_200"
             android:inputType="text"
             android:importantForAutofill="no" />
 
         <ImageView
-            android:id="@+id/sendButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -48,7 +46,6 @@
     </LinearLayout>
 
     <ProgressBar
-        android:id="@+id/progressBar"
         style="?android:attr/progressBarStyleLarge"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -56,7 +53,6 @@
         android:layout_centerVertical="true" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/messageRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@+id/linearLayout"
