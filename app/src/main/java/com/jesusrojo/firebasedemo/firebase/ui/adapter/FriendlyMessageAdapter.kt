@@ -15,8 +15,8 @@ import com.jesusrojo.firebasedemo.firebase.model.FriendlyMessage
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
 import com.jesusrojo.firebasedemo.R
-import com.jesusrojo.firebasedemo.databinding.ImageMessageBinding
-import com.jesusrojo.firebasedemo.databinding.MessageBinding
+import com.jesusrojo.firebasedemo.databinding.FirebaseImageMessageBinding
+import com.jesusrojo.firebasedemo.databinding.FirebaseMessageBinding
 import com.jesusrojo.firebasedemo.firebase.ui.help.FirebaseHelp.Companion.ANONYMOUS
 
 // The FirebaseRecyclerAdapter class and options come from the FirebaseUI library
@@ -30,12 +30,12 @@ class FriendlyMessageAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         return if (viewType == VIEW_TYPE_TEXT) {
-            val view = inflater.inflate(R.layout.message, parent, false)
-            val binding = MessageBinding.bind(view)
+            val view = inflater.inflate(R.layout.firebase_message, parent, false)
+            val binding = FirebaseMessageBinding.bind(view)
             MessageViewHolder(binding)
         } else {
-            val view = inflater.inflate(R.layout.image_message, parent, false)
-            val binding = ImageMessageBinding.bind(view)
+            val view = inflater.inflate(R.layout.firebase_image_message, parent, false)
+            val binding = FirebaseImageMessageBinding.bind(view)
             ImageMessageViewHolder(binding)
         }
     }
@@ -52,7 +52,7 @@ class FriendlyMessageAdapter(
         return if (options.snapshots[position].text != null) VIEW_TYPE_TEXT else VIEW_TYPE_IMAGE
     }
 
-    inner class MessageViewHolder(private val binding: MessageBinding) : ViewHolder(binding.root) {
+    inner class MessageViewHolder(private val binding: FirebaseMessageBinding) : ViewHolder(binding.root) {
         fun bind(item: FriendlyMessage) {
             binding.messageTextView.text = item.text
             setTextColor(item.name, binding.messageTextView)
@@ -76,7 +76,7 @@ class FriendlyMessageAdapter(
         }
     }
 
-    inner class ImageMessageViewHolder(private val binding: ImageMessageBinding) :
+    inner class ImageMessageViewHolder(private val binding: FirebaseImageMessageBinding) :
         ViewHolder(binding.root) {
         fun bind(item: FriendlyMessage) {
             loadImageIntoView(binding.messageImageView, item.imageUrl!!)
