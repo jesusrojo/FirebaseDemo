@@ -28,6 +28,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.ListenerRegistration;
 import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.Transaction;
 import com.jesusrojo.firebasedemo.R;
 import com.jesusrojo.firebasedemo.firestore.adapter.RatingAdapter;
 import com.jesusrojo.firebasedemo.firestore.model.Rating;
@@ -153,8 +154,41 @@ public class RestaurantDetailActivity extends AppCompatActivity implements
     }
 
     private Task<Void> addRating(final DocumentReference restaurantRef, final Rating rating) {
-        // TODO(developer): Implement
-        return Tasks.forException(new Exception("not yet implemented"));
+        // T0DO(developer): Implement
+       // https://firebase.google.com/codelabs/firestore-android#8
+// Create reference for new rating, for use inside the transaction
+        final DocumentReference ratingRef = restaurantRef.collection("ratings")
+                .document();
+
+        // In a transaction, add the new rating and update the aggregate totals
+        return mFirestore.runTransaction(new Transaction.Function<Void>() {
+            @Override
+            public Void apply(Transaction transaction)
+                    throws FirebaseFirestoreException {
+
+                Restaurant restaurant = transaction.get(restaurantRef)
+                        .toObject(Restaurant.class);
+
+                // Compute new number of ratings
+                int newNumRatings = restaurant.getNumRatings() + 1;
+
+                // Compute new average rating
+                double oldRatingTotal = restaurant.getAvgRating() *
+                        restaurant.getNumRatings();
+                double newAvgRating = (oldRatingTotal + rating.getRating()) /
+                        newNumRatings;
+
+                // Set new restaurant info
+                restaurant.setNumRatings(newNumRatings);
+                restaurant.setAvgRating(newAvgRating);
+
+                // Commit to Firestore
+                transaction.set(restaurantRef, restaurant);
+                transaction.set(ratingRef, rating);
+
+                return null;
+            }
+        });
     }
 
     /**

@@ -12,7 +12,7 @@ import com.jesusrojo.firebasedemo.BuildConfig;
 public class FirebaseUtil {
 
     /** Use emulators only in debug builds **/
-    private static final boolean sUseEmulators = BuildConfig.DEBUG;
+    private static final boolean sUseEmulators = false;//BuildConfig.DEBUG;//TODO REAL
 
     private static FirebaseFirestore FIRESTORE;
     private static FirebaseAuth AUTH;

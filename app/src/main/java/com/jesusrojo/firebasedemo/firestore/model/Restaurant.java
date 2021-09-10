@@ -2,9 +2,7 @@ package com.jesusrojo.firebasedemo.firestore.model;
 
 import com.google.firebase.firestore.IgnoreExtraProperties;
 
-/**
- * Restaurant POJO.
- */
+
 @IgnoreExtraProperties
 public class Restaurant {
 

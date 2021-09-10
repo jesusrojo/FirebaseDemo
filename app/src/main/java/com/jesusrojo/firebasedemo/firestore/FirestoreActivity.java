@@ -1,19 +1,4 @@
-/**
- * Copyright 2017 Google Inc. All Rights Reserved.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
- package com.jesusrojo.firebasedemo.firestore;
+package com.jesusrojo.firebasedemo.firestore;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -98,7 +83,7 @@ public class FirestoreActivity extends AppCompatActivity implements
 
         // Initialize Firestore and the main RecyclerView
         mFirestore = FirebaseUtil.getFirestore();
-        //TODO https://firebase.google.com/codelabs/firestore-android#6
+        //T0DO https://firebase.google.com/codelabs/firestore-android#6
         // Get the 50 highest rated restaurants
         mQuery = mFirestore.collection("restaurants")
                 .orderBy("avgRating", Query.Direction.DESCENDING)
@@ -172,7 +157,11 @@ public class FirestoreActivity extends AppCompatActivity implements
         // T0DO(developer): Add random restaurants
         //https://firebase.google.com/codelabs/firestore-android#5
         // Get a reference to the restaurants collection
-        CollectionReference restaurants = mFirestore.collection("restaurants");
+        CollectionReference restaurants = mFirestore.collection("restaurants")
+                //https://firebase.google.com/codelabs/firestore-android#8
+                .document("abc123")
+                .collection("ratings");
+
 
         for (int i = 0; i < 10; i++) {
             // Get a random Restaurant POJO
@@ -302,9 +291,5 @@ public class FirestoreActivity extends AppCompatActivity implements
 
         startActivityForResult(intent, RC_SIGN_IN);
         mViewModel.setIsSigningIn(true);
-    }
-
-    private void showTodoToast() {
-        Toast.makeText(this, "TODO: Implement", Toast.LENGTH_SHORT).show();
     }
 }
