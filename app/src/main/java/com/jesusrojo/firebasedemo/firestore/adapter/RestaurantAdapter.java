@@ -74,7 +74,10 @@ public class RestaurantAdapter extends FirestoreAdapter<RestaurantAdapter.ViewHo
                          final OnRestaurantSelectedListener listener) {
 
             Restaurant restaurant = snapshot.toObject(Restaurant.class);
+            if(restaurant == null ) return;
+
             Resources resources = itemView.getResources();
+            if(resources == null ) return;
 
             // Load image
             Glide.with(imageView.getContext())
@@ -99,6 +102,5 @@ public class RestaurantAdapter extends FirestoreAdapter<RestaurantAdapter.ViewHo
                 }
             });
         }
-
     }
 }

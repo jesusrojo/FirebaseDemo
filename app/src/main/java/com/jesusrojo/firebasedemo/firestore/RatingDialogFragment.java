@@ -1,5 +1,6 @@
 package com.jesusrojo.firebasedemo.firestore;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -50,7 +51,7 @@ public class RatingDialogFragment extends DialogFragment implements View.OnClick
     }
 
     @Override
-    public void onAttach(Context context) {
+    public void onAttach(@NonNull Context context) {
         super.onAttach(context);
 
         if (context instanceof RatingListener) {
@@ -61,10 +62,12 @@ public class RatingDialogFragment extends DialogFragment implements View.OnClick
     @Override
     public void onResume() {
         super.onResume();
-        getDialog().getWindow().setLayout(
-                ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT);
-
+        Dialog dialog = getDialog();
+        if (dialog != null){
+            dialog.getWindow()
+                    .setLayout(ViewGroup.LayoutParams.MATCH_PARENT,
+                            ViewGroup.LayoutParams.WRAP_CONTENT);
+        }
     }
 
     @Override

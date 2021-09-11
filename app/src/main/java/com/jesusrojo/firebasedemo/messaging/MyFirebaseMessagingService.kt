@@ -8,7 +8,6 @@ import android.content.Intent
 import android.media.RingtoneManager
 import android.os.Build
 import android.util.Log
-import android.widget.Toast
 import androidx.core.app.NotificationCompat
 import androidx.work.OneTimeWorkRequest
 import androidx.work.WorkManager
@@ -18,7 +17,7 @@ import com.jesusrojo.firebasedemo.R
 
 class MyFirebaseMessagingService : FirebaseMessagingService() {
 
-    private val TAG: String = javaClass.simpleName
+    private val myTag: String = javaClass.simpleName
 
     /**
      * Called when message is received.
@@ -39,7 +38,7 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
 
         // TODO(developer): Handle FCM messages here.
         // Not getting messages here? See why this may be: https://goo.gl/39bRNJ
-        Log.d(TAG, "onMessageReceived #####################")
+        Log.d(myTag, "onMessageReceived #####################")
         var textMsg = "From: ${remoteMessage.from}"
 
         // Check if message contains a data payload.
@@ -59,9 +58,8 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
 
         // Also if you intend on generating your own notifications as a result of a received FCM
         // message, here is where that should be initiated. See sendNotification method below.
-        Log.d(TAG, "onMessageReceived $textMsg ##")
-        Toast.makeText(applicationContext, textMsg, Toast.LENGTH_SHORT).show()
-        sendNotification(textMsg) //todo
+        Log.d(myTag, "onMessageReceived $textMsg ##")
+      //  sendNotification(textMsg) //todo
     }
 
     /**
@@ -70,7 +68,7 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
      * FCM registration token is initially generated so this is where you would retrieve the token.
      */
     override fun onNewToken(token: String) {
-        Log.d(TAG, "onNewToken: $token ##")
+        Log.d(myTag, "onNewToken: $token ##")
 
         // If you want to send messages to this application instance or
         // manage this apps subscriptions on the server side, send the
@@ -90,7 +88,7 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
      * Handle time allotted to BroadcastReceivers.
      */
     private fun handleNow() {
-        Log.d(TAG, "Short lived task is done.")
+        Log.d(myTag, "Short lived task is done.")
     }
 
     /**
@@ -103,7 +101,7 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
      */
     private fun sendRegistrationToServer(token: String?) {
         // TODO: Implement this method to send token to your app server.
-        Log.d(TAG, "sendRegistrationTokenToServer($token)")
+        Log.d(myTag, "sendRegistrationTokenToServer($token)")
     }
 
     /**

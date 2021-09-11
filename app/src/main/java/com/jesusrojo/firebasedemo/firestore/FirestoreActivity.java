@@ -9,7 +9,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -45,7 +44,6 @@ public class FirestoreActivity extends AppCompatActivity implements
 
     private static final int LIMIT = 50;
 
-    private Toolbar mToolbar;
     private TextView mCurrentSearchView;
     private TextView mCurrentSortByView;
     private RecyclerView mRestaurantsRecycler;
@@ -64,7 +62,7 @@ public class FirestoreActivity extends AppCompatActivity implements
         super.onCreate(savedInstanceState);
         setContentView(R.layout.firestore_activity_main_layout);
 
-        mToolbar = findViewById(R.id.toolbar);
+        Toolbar mToolbar = findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
 
         mCurrentSearchView = findViewById(R.id.text_current_search);

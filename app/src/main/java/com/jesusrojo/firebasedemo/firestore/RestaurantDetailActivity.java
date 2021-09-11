@@ -18,7 +18,6 @@ import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-import com.google.android.gms.tasks.Tasks;
 import com.google.android.material.snackbar.Snackbar;
 
 import com.google.firebase.firestore.DocumentReference;
@@ -163,12 +162,13 @@ public class RestaurantDetailActivity extends AppCompatActivity implements
         // In a transaction, add the new rating and update the aggregate totals
         return mFirestore.runTransaction(new Transaction.Function<Void>() {
             @Override
-            public Void apply(Transaction transaction)
+            public Void apply(@NonNull Transaction transaction)
                     throws FirebaseFirestoreException {
 
                 Restaurant restaurant = transaction.get(restaurantRef)
                         .toObject(Restaurant.class);
 
+                if (restaurant == null) return null;
                 // Compute new number of ratings
                 int newNumRatings = restaurant.getNumRatings() + 1;
 
@@ -201,7 +201,9 @@ public class RestaurantDetailActivity extends AppCompatActivity implements
             return;
         }
 
-        onRestaurantLoaded(snapshot.toObject(Restaurant.class));
+        Restaurant restaurant = snapshot.toObject(Restaurant.class);
+        if (restaurant == null) return;
+        onRestaurantLoaded(restaurant);
     }
 
     private void onRestaurantLoaded(Restaurant restaurant) {

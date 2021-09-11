@@ -101,7 +101,6 @@ public abstract class FirestoreAdapter<VH extends RecyclerView.ViewHolder>
         if (mQuery != null && mRegistration == null) {
             mRegistration = mQuery.addSnapshotListener(this);
         }
-
     }
 
     public void stopListening() {
@@ -109,7 +108,6 @@ public abstract class FirestoreAdapter<VH extends RecyclerView.ViewHolder>
             mRegistration.remove();
             mRegistration = null;
         }
-
         mSnapshots.clear();
         notifyDataSetChanged();
     }

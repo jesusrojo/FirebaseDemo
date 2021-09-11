@@ -16,7 +16,7 @@ class MessagingHelp(
     private val activity: Activity,
     private val listener: (String) -> Unit) {
 
-    private val TAG = javaClass.simpleName
+    private val myTag = javaClass.simpleName
 
     fun onCreate() {
         //checkForGooglePlayServices()
@@ -30,7 +30,6 @@ class MessagingHelp(
 
     private fun createChannelNotifications() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            // Create channel to show notifications.
             val channelId = activity.getString(R.string.default_notification_channel_id)
             val channelName = activity.getString(R.string.default_notification_channel_name)
             val notificationManager = activity.getSystemService(NotificationManager::class.java)
@@ -57,7 +56,7 @@ class MessagingHelp(
             for (key in it.keySet()) {
                 val value = activity.intent.extras?.get(key)
                 val msg = "Key: $key Value: $value"
-                Log.d(TAG, msg)
+                Log.d(myTag, msg)
                 listener?.invoke(msg)
             }
         }
@@ -65,20 +64,20 @@ class MessagingHelp(
     }
 
     fun getRegToken() {
-        ////https://firebase.google.com/docs/cloud-messaging/android/client#kotlin+ktx
         Firebase.messaging.token.addOnCompleteListener(OnCompleteListener { task ->
             if (!task.isSuccessful) {
-                Log.d(TAG, "Fetching FCM registration token failed", task.exception)
+                Log.d(myTag, "Fetching FCM registration token failed", task.exception)
                 return@OnCompleteListener
             }
             val token = task.result  // Get new FCM registration token
             val msg = activity.getString(R.string.msg_token_fmt, token)
             logAndToast(msg)
+            //d9D6a1SEREGCXVPB_Mn24j:APA91bFKRQpGr6NrYLLZwY9kRJgpcm51wSlpowhm7prUHlppaHYW7WI2AY1yOukNN1KDZa2kCx24EGB9vUi8_exoI9Ko_WNOblLFyRRZsggEf-zQ7mTIhScUQaRd2b-cF-pga7jTIU5d
         })
     }
 
     internal fun subscribeToTopic() {
-        Log.d(TAG, "subscribeToTopic")
+        Log.d(myTag, "subscribeToTopic")
         Firebase.messaging.subscribeToTopic("weather")
             .addOnCompleteListener { task ->
                 var msg = activity.getString(R.string.msg_subscribed)
@@ -90,7 +89,7 @@ class MessagingHelp(
     }
 
     private fun logAndToast(msg: String) {
-        Log.d(TAG, msg)
+        Log.d(myTag, msg)
         Toast.makeText(activity.applicationContext, msg, Toast.LENGTH_SHORT).show()
         listener?.invoke(msg)
     }

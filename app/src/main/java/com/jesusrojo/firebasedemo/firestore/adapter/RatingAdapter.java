@@ -32,7 +32,9 @@ public class RatingAdapter extends FirestoreAdapter<RatingAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.bind(getSnapshot(position).toObject(Rating.class));
+        Rating rating = getSnapshot(position).toObject(Rating.class);
+        if (rating == null) return;
+        holder.bind(rating);
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {

@@ -3,7 +3,6 @@ package com.jesusrojo.firebasedemo.firestore.util;
 import com.firebase.ui.auth.AuthUI;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.jesusrojo.firebasedemo.BuildConfig;
 
 /**
  * Utility class for initializing Firebase services and connecting them to the Firebase Emulator
