@@ -8,6 +8,7 @@ import android.content.Intent
 import android.media.RingtoneManager
 import android.os.Build
 import android.util.Log
+import android.widget.Toast
 import androidx.core.app.NotificationCompat
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import androidx.work.OneTimeWorkRequest
@@ -46,11 +47,7 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
         val dataReceived = remoteMessage.data
         if (dataReceived.isNotEmpty()) {
             textMsg += "Data $dataReceived"
-            ////////////////////////////////////////////////////////////////////////////
-            //https://www.youtube.com/watch?v=axX5VGzhboo
-            val messageReceived = dataReceived[INTENT_ACTION_SEND_MESSAGE_PARAM_KEY]!!
-            passMsgToActivity(messageReceived)
-            ////////////////////////////////////////////////////////////////////////////
+
             if (/* Check if data needs to be processed by long running job TODO*/ true) {
                 scheduleJob()// For long-running tasks (10 seconds or more) use WorkManager
             } else {
@@ -62,9 +59,19 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
         // Also if you intend on generating your own notifications as a result of a received FCM
         // message, here is where that should be initiated. See sendNotification method below.
         Log.d(myTag, "onMessageReceived $textMsg ##")
+
+
+        ////////////////////////////////////////////////////////////////////////////
+        //https://www.youtube.com/watch?v=axX5VGzhboo
+//        val messageReceived = dataReceived[INTENT_ACTION_SEND_MESSAGE_PARAM_KEY]!!
+        val messageReceived = textMsg
+        passMsgToActivity(messageReceived)
+        ////////////////////////////////////////////////////////////////////////////
     }
 
     private fun passMsgToActivity(message: String) {
+        Log.d(myTag, "passMsgToActivity ##")
+
         val intent = Intent().apply {
             action = INTENT_ACTION_SEND_MESSAGE
             putExtra(INTENT_ACTION_SEND_MESSAGE_PARAM_KEY, message)
@@ -80,6 +87,7 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
     override fun onNewToken(token: String) {
         Log.d(myTag, "onNewToken: $token ##")
 
+        Toast.makeText(this, "onNewToken $token", Toast.LENGTH_SHORT).show()
         // If you want to send messages to this application instance or
         // manage this apps subscriptions on the server side, send the
         // FCM registration token to your app server.

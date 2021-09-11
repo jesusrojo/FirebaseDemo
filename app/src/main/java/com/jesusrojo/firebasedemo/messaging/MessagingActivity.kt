@@ -6,6 +6,7 @@ import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.os.Bundle
+import android.util.Log
 import androidx.annotation.NonNull
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -15,6 +16,7 @@ import com.jesusrojo.firebasedemo.databinding.MessagingActivityBinding
 
 class MessagingActivity : AppCompatActivity() {
 
+    private val myTag = javaClass.simpleName
     private lateinit var messagingHelp: MessagingHelp
     lateinit var broadcastReceiver: BroadcastReceiver
 
@@ -51,6 +53,8 @@ class MessagingActivity : AppCompatActivity() {
     private fun initBroadCastReceiver() {
         broadcastReceiver = object : BroadcastReceiver() {
             override fun onReceive(context: Context, intent: Intent) {
+                Log.d(myTag, "onReceive ##")
+
                 val msg =
                     intent.getStringExtra(MyFirebaseMessagingService.INTENT_ACTION_SEND_MESSAGE_PARAM_KEY)
                 if (msg != null && msg.isNotEmpty()){
