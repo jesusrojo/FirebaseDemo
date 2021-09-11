@@ -6,6 +6,7 @@ import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import com.jesusrojo.firebasedemo.firebase.ui.FirebaseActivity
 import com.jesusrojo.firebasedemo.firestore.FirestoreActivity
+import com.jesusrojo.firebasedemo.messaging.MessagingActivity
 
 class MainActivity: AppCompatActivity(){
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -21,6 +22,11 @@ class MainActivity: AppCompatActivity(){
         val btn02 = findViewById<Button>(R.id.btn_firestore)
         btn02.setOnClickListener {
             startActivity(Intent(this, FirestoreActivity::class.java))
+        }
+
+        val btn03 = findViewById<Button>(R.id.btn_messaging)
+        btn03.setOnClickListener {
+            startActivity(Intent(this, MessagingActivity::class.java))
         }
     }
 }

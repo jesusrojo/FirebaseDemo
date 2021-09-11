@@ -1,41 +1,46 @@
 package com.jesusrojo.firebasedemo.messaging
 
+
 import android.os.Bundle
-
 import androidx.appcompat.app.AppCompatActivity
-import com.google.android.gms.common.GoogleApiAvailability
-import com.jesusrojo.firebasedemo.R
 
+import com.jesusrojo.firebasedemo.databinding.MessagingActivityBinding
 
 class MessagingActivity : AppCompatActivity() {
+
+    private lateinit var messagingHelp: MessagingHelp
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.messanging_activity)
 
-        checkForGooglePlayServices()
+        // UI
+        val binding = MessagingActivityBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+        binding.subscribeButton.setOnClickListener {
+            subscribeToTopic()
+        }
+        binding.logTokenButton.setOnClickListener {
+            getRegToken()
+        }
+
+        // MESSAGING
+        messagingHelp = MessagingHelp(this){ textUi ->
+           binding.tvMessaging.text = textUi
+        }
+        messagingHelp.onCreate()
     }
 
     override fun onResume() {
         super.onResume()
-        checkForGooglePlayServices()
+        messagingHelp.onResume()
     }
 
-    // MESSAGING
-    private fun checkForGooglePlayServices() {
-        //https://firebase.google.com/docs/cloud-messaging/android/client#kotlin+ktx
-        if (hasGooglePlayServices()) {
-            TODO("Not yet implemented")
-        } else {
-            downloadGooglePlayServices()
-        }
+    private fun getRegToken() {
+        messagingHelp.getRegToken()
     }
 
-    private fun hasGooglePlayServices(): Boolean {
-        TODO("Not yet implemented")
-        return true
-    }
-
-    private fun downloadGooglePlayServices() {
-        GoogleApiAvailability.getInstance().makeGooglePlayServicesAvailable(this)
+    private fun subscribeToTopic() {
+        messagingHelp.subscribeToTopic()
     }
 }

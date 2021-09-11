@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="HardcodedText"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
@@ -11,29 +12,30 @@
         android:id="@+id/btn_firebase"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="8dp"
+        android:padding="16dp"
+        android:layout_margin="16dp"
         android:layout_gravity="center"
-        android:text="Firebase"
         android:textSize="20dp"
-        android:layout_margin="16dp"/>
+        android:text="Firebase Chat" />
 
     <Button
         android:id="@+id/btn_firestore"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="8dp"
+        android:padding="16dp"
+        android:layout_margin="16dp"
         android:layout_gravity="center"
         android:textSize="20dp"
-        android:text="Firestore" />
+        android:text="Firestore Restaurants" />
 
 
     <Button
-        android:id="@+id/btn_messanging"
+        android:id="@+id/btn_messaging"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="8dp"
+        android:padding="16dp"
+        android:layout_margin="16dp"
         android:layout_gravity="center"
         android:textSize="20dp"
-        android:text="Messaging"
-        tools:ignore="HardcodedText" />
+        android:text="Messaging" />
 </LinearLayout>

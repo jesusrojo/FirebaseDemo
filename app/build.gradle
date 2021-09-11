@@ -83,6 +83,11 @@ dependencies {
     implementation 'com.google.firebase:firebase-messaging-ktx'
     implementation 'com.google.firebase:firebase-analytics-ktx'
 
+    // FIREBASE ANALYTICS
+    implementation 'com.google.firebase:firebase-analytics-ktx'
+
+    // WORK MANAGER
+    implementation 'androidx.work:work-runtime:2.6.0'
 
     // TEST
     testImplementation 'junit:junit:4.13.2'
