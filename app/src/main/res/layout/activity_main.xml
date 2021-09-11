@@ -10,7 +10,7 @@
 
     <Button
         android:id="@+id/btn_firebase"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="16dp"
         android:layout_margin="16dp"
@@ -20,7 +20,7 @@
 
     <Button
         android:id="@+id/btn_firestore"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="16dp"
         android:layout_margin="16dp"
@@ -31,11 +31,21 @@
 
     <Button
         android:id="@+id/btn_messaging"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="16dp"
         android:layout_margin="16dp"
         android:layout_gravity="center"
         android:textSize="20dp"
         android:text="Messaging" />
+
+
+    <TextView
+        android:id="@+id/tv_main"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp"
+        android:layout_margin="16dp"
+        android:layout_gravity="center"
+        android:textSize="20dp"/>
 </LinearLayout>
