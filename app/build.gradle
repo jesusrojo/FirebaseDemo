@@ -75,8 +75,14 @@ dependencies {
 
     // Firestore
     implementation 'com.google.firebase:firebase-firestore:23.0.3'
-
     implementation 'me.zhanghai.android.materialratingbar:library:1.4.0'
+
+    //   MESSAGING
+    // Declare the dependencies for the Firebase Cloud Messaging and Analytics libraries
+    // When using the BoM, you don't specify versions in Firebase library dependencies
+    implementation 'com.google.firebase:firebase-messaging-ktx'
+    implementation 'com.google.firebase:firebase-analytics-ktx'
+
 
     // TEST
     testImplementation 'junit:junit:4.13.2'

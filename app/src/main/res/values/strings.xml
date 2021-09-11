@@ -54,6 +54,7 @@
     <string name="hint_review">How was your experience?</string>
     <string name="submit">Submit</string>
     <string name="filter_add_review">Add review</string>
+    <string name="default_notification_channel_id">FirebaseDemoChannelId1</string>
 
     <!-- Types of food I could think of in 5 minutes -->
     <string-array name="categories">
