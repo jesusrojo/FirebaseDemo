@@ -9,6 +9,7 @@ import android.media.RingtoneManager
 import android.os.Build
 import android.util.Log
 import androidx.core.app.NotificationCompat
+import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import androidx.work.OneTimeWorkRequest
 import androidx.work.WorkManager
 import com.google.firebase.messaging.FirebaseMessagingService
@@ -42,9 +43,14 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
         var textMsg = "From: ${remoteMessage.from}"
 
         // Check if message contains a data payload.
-        if (remoteMessage.data.isNotEmpty()) {
-            textMsg += "Data ${remoteMessage.data}"
-
+        val dataReceived = remoteMessage.data
+        if (dataReceived.isNotEmpty()) {
+            textMsg += "Data $dataReceived"
+            ////////////////////////////////////////////////////////////////////////////
+            //https://www.youtube.com/watch?v=axX5VGzhboo
+            val messageReceived = dataReceived[INTENT_ACTION_SEND_MESSAGE_PARAM_KEY]!!
+            passMsgToActivity(messageReceived)
+            ////////////////////////////////////////////////////////////////////////////
             if (/* Check if data needs to be processed by long running job TODO*/ true) {
                 scheduleJob()// For long-running tasks (10 seconds or more) use WorkManager
             } else {
@@ -52,14 +58,18 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
             }
         }
         // Check if message contains a notification payload.
-        remoteMessage.notification?.let {
-            textMsg += "Body: ${it.body} ##"
-        }
-
+        remoteMessage.notification?.let { textMsg += "Body: ${it.body} ##" }
         // Also if you intend on generating your own notifications as a result of a received FCM
         // message, here is where that should be initiated. See sendNotification method below.
         Log.d(myTag, "onMessageReceived $textMsg ##")
-      //  sendNotification(textMsg) //todo
+    }
+
+    private fun passMsgToActivity(message: String) {
+        val intent = Intent().apply {
+            action = INTENT_ACTION_SEND_MESSAGE
+            putExtra(INTENT_ACTION_SEND_MESSAGE_PARAM_KEY, message)
+        }
+        LocalBroadcastManager.getInstance(this).sendBroadcast(intent)
     }
 
     /**
@@ -104,37 +114,44 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
         Log.d(myTag, "sendRegistrationTokenToServer($token)")
     }
 
-    /**
-     * Create and show a simple notification containing the received FCM message.
-     *
-     * @param messageBody FCM message body received.
-     */
-    private fun sendNotification(messageBody: String) {
-        val intent = Intent(this, MessagingActivity::class.java)
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-        val pendingIntent = PendingIntent.getActivity(this, 0 /* Request code */, intent,
-                PendingIntent.FLAG_ONE_SHOT)
 
-        val channelId = getString(R.string.default_notification_channel_id)
-        val defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
-        val notificationBuilder = NotificationCompat.Builder(this, channelId)
-                .setSmallIcon(R.drawable.ic_stat_ic_notification)
-                .setContentTitle(getString(R.string.fcm_message))
-                .setContentText(messageBody)
-                .setAutoCancel(true)
-                .setSound(defaultSoundUri)
-                .setContentIntent(pendingIntent)
+////////////////////////////////
+//    /**
+//     * Create and show a simple notification containing the received FCM message.
+//     *
+//     * @param messageBody FCM message body received.
+//     */
+//    private fun sendNotification(messageBody: String) {
+//        val intent = Intent(this, MessagingActivity::class.java)
+//        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+//        val pendingIntent = PendingIntent.getActivity(this, 0 /* Request code */, intent,
+//                PendingIntent.FLAG_ONE_SHOT)
+//
+//        val channelId = getString(R.string.default_notification_channel_id)
+//        val defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
+//        val notificationBuilder = NotificationCompat.Builder(this, channelId)
+//                .setSmallIcon(R.drawable.ic_stat_ic_notification)
+//                .setContentTitle(getString(R.string.fcm_message))
+//                .setContentText(messageBody)
+//                .setAutoCancel(true)
+//                .setSound(defaultSoundUri)
+//                .setContentIntent(pendingIntent)
+//
+//        val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+//
+//        // Since android Oreo notification channel is needed.
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+//            val channel = NotificationChannel(channelId,
+//                    "Channel human readable title",
+//                    NotificationManager.IMPORTANCE_DEFAULT)
+//            notificationManager.createNotificationChannel(channel)
+//        }
+//
+//        notificationManager.notify(0 /* ID of notification */, notificationBuilder.build())
+//    }
 
-        val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-
-        // Since android Oreo notification channel is needed.
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val channel = NotificationChannel(channelId,
-                    "Channel human readable title",
-                    NotificationManager.IMPORTANCE_DEFAULT)
-            notificationManager.createNotificationChannel(channel)
-        }
-
-        notificationManager.notify(0 /* ID of notification */, notificationBuilder.build())
+    companion object {
+        const val INTENT_ACTION_SEND_MESSAGE = "INTENT_ACTION_SEND_MESSAGE"
+        const val INTENT_ACTION_SEND_MESSAGE_PARAM_KEY = "message"
     }
 }
