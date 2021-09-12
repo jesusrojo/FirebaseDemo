@@ -19,9 +19,18 @@ class AnalyticsHelp {
         val id = 0
         val name = "name"
         val bundle = Bundle()
+
+
+        //1use FirebaseAnalytics.Param.
         bundle.putInt(FirebaseAnalytics.Param.ITEM_ID, id)
         bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, name)
         bundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE, "image")
+
+        firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_ITEM, bundle)
+
+        //2 use our names
+        bundle.putString("show_name", name)
+        firebaseAnalytics?.logEvent("show_name", bundle)
 
         firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_ITEM, bundle)
     }
