@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.jesusrojo.firebasedemo.firebase.ui.FirebaseActivity
 import com.jesusrojo.firebasedemo.firestore.FirestoreActivity
 import com.jesusrojo.firebasedemo.messaging.MessagingActivity
+import com.jesusrojo.firebasedemo.messaging2.Messaging2Activity
 
 class MainActivity: AppCompatActivity(){
 
@@ -45,6 +46,10 @@ class MainActivity: AppCompatActivity(){
         val btn03 = findViewById<Button>(R.id.btn_messaging)
         btn03.setOnClickListener {
             startActivity(Intent(this, MessagingActivity::class.java))
+        }
+        val btn04 = findViewById<Button>(R.id.btn_messaging2)
+        btn04.setOnClickListener {
+            startActivity(Intent(this, Messaging2Activity::class.java))
         }
     }
 }

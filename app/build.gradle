@@ -2,6 +2,7 @@ plugins {
     id 'com.android.application'
     id 'kotlin-android'
     id 'com.google.gms.google-services'
+    id 'kotlin-kapt'
 }
 
 android {
@@ -37,6 +38,9 @@ android {
     }
     buildFeatures {
         viewBinding true
+    }
+    dataBinding {
+        enabled = true
     }
     // KTOR
     packagingOptions {
@@ -93,6 +97,10 @@ dependencies {
     // When using the BoM, you don't specify versions in Firebase library dependencies
     implementation 'com.google.firebase:firebase-messaging-ktx'
     implementation 'com.google.firebase:firebase-analytics-ktx'
+
+    // MESSAGING2
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.0-alpha03'
 
     // FIREBASE ANALYTICS
     implementation 'com.google.firebase:firebase-analytics-ktx'
