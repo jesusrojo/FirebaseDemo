@@ -33,7 +33,7 @@ public abstract class FirestoreAdapter<VH extends RecyclerView.ViewHolder>
     private Query mQuery;
     private ListenerRegistration mRegistration;
 
-    private ArrayList<DocumentSnapshot> mSnapshots = new ArrayList<>();
+    private final ArrayList<DocumentSnapshot> mSnapshots = new ArrayList<>();
 
     public FirestoreAdapter(Query query) {
         mQuery = query;

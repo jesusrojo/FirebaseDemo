@@ -1,21 +1,14 @@
 package com.jesusrojo.firebasedemo.messaging
 
-import android.app.NotificationChannel
-import android.app.NotificationManager
-import android.app.PendingIntent
-import android.content.Context
 import android.content.Intent
-import android.media.RingtoneManager
-import android.os.Build
 import android.util.Log
 import android.widget.Toast
-import androidx.core.app.NotificationCompat
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import androidx.work.OneTimeWorkRequest
-import androidx.work.WorkManager
+import androidx.work.*
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
-import com.jesusrojo.firebasedemo.R
+import com.jesusrojo.firebasedemo.util.DebugHelp
 
 class MyFirebaseMessagingService : FirebaseMessagingService() {
 
@@ -40,7 +33,7 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
 
         // TODO(developer): Handle FCM messages here.
         // Not getting messages here? See why this may be: https://goo.gl/39bRNJ
-        Log.d(myTag, "onMessageReceived #####################")
+        DebugHelp.l(myTag, "onMessageReceived #####################")
         var textMsg = "From: ${remoteMessage.from}"
 
         // Check if message contains a data payload.
@@ -48,29 +41,26 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
         if (dataReceived.isNotEmpty()) {
             textMsg += "Data $dataReceived"
 
-            if (/* Check if data needs to be processed by long running job TODO*/ true) {
-                scheduleJob()// For long-running tasks (10 seconds or more) use WorkManager
-            } else {
-                handleNow()// Handle message within 10 seconds
-            }
+//            if (/* Check if data needs to be processed by long running job TODO*/ true) {
+//                scheduleJob()// For long-running tasks (10 seconds or more) use WorkManager
+//            } else {
+//                handleNow()// Handle message within 10 seconds
+//            }
         }
         // Check if message contains a notification payload.
         remoteMessage.notification?.let { textMsg += "Body: ${it.body} ##" }
         // Also if you intend on generating your own notifications as a result of a received FCM
         // message, here is where that should be initiated. See sendNotification method below.
-        Log.d(myTag, "onMessageReceived $textMsg ##")
 
-
-        ////////////////////////////////////////////////////////////////////////////
-        //https://www.youtube.com/watch?v=axX5VGzhboo
-//        val messageReceived = dataReceived[INTENT_ACTION_SEND_MESSAGE_PARAM_KEY]!!
+        //////////////////////////////////
+        //// val messageReceived = dataReceived[INTENT_ACTION_SEND_MESSAGE_PARAM_KEY]!!
         val messageReceived = textMsg
         passMsgToActivity(messageReceived)
-        ////////////////////////////////////////////////////////////////////////////
+        //////////////////////////////////
     }
 
     private fun passMsgToActivity(message: String) {
-        Log.d(myTag, "passMsgToActivity ##")
+        DebugHelp.l(myTag,  "passMsgToActivity $message")
 
         val intent = Intent().apply {
             action = INTENT_ACTION_SEND_MESSAGE
@@ -85,7 +75,7 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
      * FCM registration token is initially generated so this is where you would retrieve the token.
      */
     override fun onNewToken(token: String) {
-        Log.d(myTag, "onNewToken: $token ##")
+        DebugHelp.l(myTag,  "onNewToken: $token *****")
 
         Toast.makeText(this, "onNewToken $token", Toast.LENGTH_SHORT).show()
         // If you want to send messages to this application instance or
@@ -94,20 +84,20 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
         sendRegistrationToServer(token)
     }
 
-    /**
-     * Schedule async work using WorkManager.
-     */
-    private fun scheduleJob() {
-        val work = OneTimeWorkRequest.Builder(MyWorker::class.java).build()
-        WorkManager.getInstance(this).beginWith(work).enqueue()
-    }
-
-    /**
-     * Handle time allotted to BroadcastReceivers.
-     */
-    private fun handleNow() {
-        Log.d(myTag, "Short lived task is done.")
-    }
+//    /**
+//     * Schedule async work using WorkManager.
+//     */
+//    private fun scheduleJob() {
+//        val work = OneTimeWorkRequest.Builder(MyWorker::class.java).build()
+//        WorkManager.getInstance(this).beginWith(work).enqueue()
+//    }
+//
+//    /**
+//     * Handle time allotted to BroadcastReceivers.
+//     */
+//    private fun handleNow() {
+//        DebugHelp.l(myTag,  "Short lived task is done.")
+//    }
 
     /**
      * Persist token to third-party servers.
@@ -119,10 +109,19 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
      */
     private fun sendRegistrationToServer(token: String?) {
         // TODO: Implement this method to send token to your app server.
-        Log.d(myTag, "sendRegistrationTokenToServer($token)")
+        DebugHelp.l(myTag, "sendRegistrationTokenToServer($token)")
+
+        val userId = "1" //todo userId, deviceId
+        val data = Data.Builder()
+            .putString("TOKEN_KEY", token)
+            .putString("DEVICE_KEY", userId)
+            .build()
+
+        val workRequest: WorkRequest = OneTimeWorkRequestBuilder<SendTokenWorker>()
+            .setInputData(data)
+            .build()
+        WorkManager.getInstance(applicationContext).enqueue(workRequest)
     }
-
-
 ////////////////////////////////
 //    /**
 //     * Create and show a simple notification containing the received FCM message.
