@@ -2,26 +2,19 @@ package com.jesusrojo.firebasedemo.server
 
 
 
-//import android.app.Notification.MessagingStyle
-import com.google.auth.oauth2.GoogleCredentials
 import io.ktor.application.*
 import io.ktor.features.ContentNegotiation
 import io.ktor.features.StatusPages
 import io.ktor.gson.*
 import io.ktor.http.ContentType
 import io.ktor.http.HttpStatusCode
-import io.ktor.http.cio.*
-import io.ktor.request.*
+
 import io.ktor.response.*
 import io.ktor.routing.*
 import io.ktor.server.engine.*
 import io.ktor.server.netty.Netty
 import java.text.DateFormat
 import java.util.concurrent.TimeUnit
-import com.google.firebase.FirebaseApp
-import com.google.firebase.FirebaseOptions
-import com.google.firebase.messaging.FirebaseMessaging
-import java.io.FileInputStream
 
 
 class KtorServer {
@@ -36,14 +29,14 @@ class KtorServer {
     fun startServer() {
         println("startServer #")
 
-        val serviceAccount = FileInputStream("path/to/serviceAccountKey.json")//todo
-
-        val options: FirebaseOptions = FirebaseOptions.Builder()
-            .setCredentials(GoogleCredentials.fromStream(serviceAccount))
-            .setDatabaseUrl("https://fir-demo-a3232-default-rtdb.firebaseio.com")
-            .build()
-
-        FirebaseApp.initializeApp(options)
+//        val serviceAccount = FileInputStream("path/to/serviceAccountKey.json")//todo
+//
+//        val options: FirebaseOptions = FirebaseOptions.Builder()
+//            .setCredentials(GoogleCredentials.fromStream(serviceAccount))
+//            .setDatabaseUrl("https://fir-demo-a3232-default-rtdb.firebaseio.com")
+//            .build()
+//
+//        FirebaseApp.initializeApp(options)
 
 
         server = embeddedServer(Netty, 8080) {

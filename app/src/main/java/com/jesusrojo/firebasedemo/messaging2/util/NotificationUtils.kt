@@ -1,5 +1,6 @@
 package com.jesusrojo.firebasedemo.messaging2.util
 
+import android.annotation.SuppressLint
 import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Context
@@ -22,6 +23,7 @@ private val FLAGS = 0
  * @param messageBody, notification text.
  * @param context, activity context.
  */
+@SuppressLint("WrongConstant")
 fun NotificationManager.sendNotification(messageBody: String, applicationContext: Context) {
 
 
