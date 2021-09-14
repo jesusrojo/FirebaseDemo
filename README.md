@@ -13,15 +13,14 @@ Android playground project using [Firebase](https://firebase.google.com).
 #### Cloud Messaging
 - [Firebase Cloud Messaging][FIREBASE_CLOUD_MESSAGING]
 - [Firebase Cloud Messaging - Android][FIREBASE_CLOUD_MESSAGING_ANDROID]
-- [Firebase Cloud Messaging - Codelab 01.2][CODELAB_FIREBASE_CLOUD_MESSAGING]
+- [Android Firebase Cloud Messaging codelab 01.2][CODELAB_FIREBASE_CLOUD_MESSAGING]
 
 #### Analytics
 - [Firebase Analytics][FIREBASE_ANALYTICS]
 - [Firebase Analytics start][FIREBASE_ANALYTICS_START]
 
 #### Login
-- [FirebaseUi Login Codelab 06.1][FIREBASE_LOGIN_CODELAB]
-- [FirebaseUi Login Codelab 06.1][FIREBASE_LOGIN_CODELAB]
+- [Android Login with FirebaseUI codelab 06.1][FIREBASE_LOGIN_CODELAB]
 - [Github FirebaseUi Login][GITHUB_FIREBASE_LOGIN_CODELAB]
 
 

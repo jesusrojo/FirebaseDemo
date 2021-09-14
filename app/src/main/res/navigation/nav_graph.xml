@@ -8,17 +8,19 @@
 
     <fragment
             android:id="@+id/mainFragment"
-            android:name="com.jesusrojo.firebasedemo.login.MainFragment"
+            android:name="com.jesusrojo.firebasedemo.login.LoginMainFragment"
             android:label="MainFragment">
     </fragment>
-    <fragment
-            android:id="@+id/settingsFragment"
-            android:name="com.jesusrojo.firebasedemo.login.SettingsFragment"
-            android:label="fragment_settings">
-    </fragment>
+
     <fragment
             android:id="@+id/loginFragment"
             android:name="com.jesusrojo.firebasedemo.login.LoginFragment"
             android:label="fragment_login"
             tools:layout="@layout/login_fragment_layout"/>
+
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.jesusrojo.firebasedemo.login.SettingsFragment"
+        android:label="fragment_settings">
+    </fragment>
 </navigation>

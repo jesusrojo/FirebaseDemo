@@ -17,10 +17,10 @@ import com.google.firebase.auth.FirebaseAuth
 import com.jesusrojo.firebasedemo.R
 import com.jesusrojo.firebasedemo.databinding.LoginMainFragmentLayoutBinding
 
-class MainFragment : Fragment() {
+class LoginMainFragment : Fragment() {
 
     companion object {
-        const val TAG = "MainFragment"
+        const val TAG = "LoginMainFragment"
         const val SIGN_IN_RESULT_CODE = 1001
     }
 
@@ -33,7 +33,7 @@ class MainFragment : Fragment() {
     ): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.login_main_fragment_layout, container, false)
 
-        // TODO Remove the two lines below once observeAuthenticationState is implemented.
+        // T0DO Remove the two lines below once observeAuthenticationState is implemented.
         binding.welcomeText.text = viewModel.getFactToDisplay(requireContext())
         binding.authButton.text = getString(R.string.login_btn)
 
@@ -72,7 +72,7 @@ class MainFragment : Fragment() {
      * If there is no logged in user: show a login button
      */
     private fun observeAuthenticationState() {
-        val factToDisplay = viewModel.getFactToDisplay(requireContext())
+        val factToDisplay = viewModel.getFactToDisplay(requireContext()) //TODO INTERESTING
 
         viewModel.authenticationState.observe(viewLifecycleOwner, Observer { authenticationState ->
             when (authenticationState) {
@@ -98,7 +98,7 @@ class MainFragment : Fragment() {
 
 
     private fun getFactWithPersonalization(fact: String): String {
-        return String.format(
+        return String.format( //TODO INTERESTING
             resources.getString(
                 R.string.welcome_message_authed,
                 FirebaseAuth.getInstance().currentUser?.displayName,
