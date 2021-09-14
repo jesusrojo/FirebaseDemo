@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:id="@+id/nav_graph"
+            app:startDestination="@id/mainFragment">
+
+    <fragment
+            android:id="@+id/mainFragment"
+            android:name="com.jesusrojo.firebasedemo.login.MainFragment"
+            android:label="MainFragment">
+    </fragment>
+    <fragment
+            android:id="@+id/settingsFragment"
+            android:name="com.jesusrojo.firebasedemo.login.SettingsFragment"
+            android:label="fragment_settings">
+    </fragment>
+    <fragment
+            android:id="@+id/loginFragment"
+            android:name="com.jesusrojo.firebasedemo.login.LoginFragment"
+            android:label="fragment_login"
+            tools:layout="@layout/login_fragment_layout"/>
+</navigation>

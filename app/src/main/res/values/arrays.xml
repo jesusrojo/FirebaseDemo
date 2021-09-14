@@ -19,4 +19,10 @@
         <item>10</item>
         <item>12</item>
     </integer-array>
+
+
+    <array name="fact_type">
+        <item>@string/fact_type_android</item>
+        <item>@string/fact_type_california</item>
+    </array>
 </resources>

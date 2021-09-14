@@ -8,6 +8,7 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.jesusrojo.firebasedemo.firebase.ui.FirebaseActivity
 import com.jesusrojo.firebasedemo.firestore.FirestoreActivity
+import com.jesusrojo.firebasedemo.login.LoginActivity
 import com.jesusrojo.firebasedemo.messaging.MessagingActivity
 import com.jesusrojo.firebasedemo.messaging2.Messaging2Activity
 
@@ -50,6 +51,11 @@ class MainActivity: AppCompatActivity(){
         val btn04 = findViewById<Button>(R.id.btn_messaging2)
         btn04.setOnClickListener {
             startActivity(Intent(this, Messaging2Activity::class.java))
+        }
+
+        val btn05 = findViewById<Button>(R.id.btn_login)
+        btn05.setOnClickListener {
+            startActivity(Intent(this, LoginActivity::class.java))
         }
     }
 }
