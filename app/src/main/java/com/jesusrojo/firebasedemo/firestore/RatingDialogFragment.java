@@ -13,6 +13,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
 
+import com.google.firebase.auth.FirebaseUser;
 import com.jesusrojo.firebasedemo.R;
 import com.jesusrojo.firebasedemo.firestore.model.Rating;
 import com.jesusrojo.firebasedemo.firestore.util.FirebaseUtil;
@@ -83,8 +84,10 @@ public class RatingDialogFragment extends DialogFragment implements View.OnClick
     }
 
     public void onSubmitClicked(View view) {
+        FirebaseUser currentUser = FirebaseUtil.getAuth().getCurrentUser();
+        if(currentUser ==  null) return;
         Rating rating = new Rating(
-                FirebaseUtil.getAuth().getCurrentUser(),
+                currentUser,
                 mRatingBar.getRating(),
                 mRatingText.getText().toString());
 

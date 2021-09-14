@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 
 import com.jesusrojo.firebasedemo.databinding.MessagingActivityBinding
+import com.jesusrojo.firebasedemo.util.DebugHelp
 
 class MessagingActivity : AppCompatActivity() {
 
@@ -53,7 +54,7 @@ class MessagingActivity : AppCompatActivity() {
     private fun initBroadCastReceiver() {
         broadcastReceiver = object : BroadcastReceiver() {
             override fun onReceive(context: Context, intent: Intent) {
-                Log.d(myTag, "onReceive ##")
+                DebugHelp.l(myTag, "onReceive ##")
 
                 val msg =
                     intent.getStringExtra(MyFirebaseMessagingService.INTENT_ACTION_SEND_MESSAGE_PARAM_KEY)

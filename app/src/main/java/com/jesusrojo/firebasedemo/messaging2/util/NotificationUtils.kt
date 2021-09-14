@@ -12,16 +12,16 @@ import com.jesusrojo.firebasedemo.R
 import com.jesusrojo.firebasedemo.messaging2.Messaging2Activity
 
 // Notification ID.
-private val NOTIFICATION_ID = 0
-private val REQUEST_CODE = 0
-private val FLAGS = 0
+private const val NOTIFICATION_ID = 0
+private const val REQUEST_CODE = 0
+private const val FLAGS = 0
 
 // Step 1.1 extension function to send messages (GIVEN)
 /**
  * Builds and delivers the notification.
  *
  * @param messageBody, notification text.
- * @param context, activity context.
+ * @param applicationContext, activity context.
  */
 @SuppressLint("WrongConstant")
 fun NotificationManager.sendNotification(messageBody: String, applicationContext: Context) {

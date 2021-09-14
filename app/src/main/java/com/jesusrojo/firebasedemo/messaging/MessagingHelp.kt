@@ -10,6 +10,7 @@ import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.messaging.ktx.messaging
 import com.jesusrojo.firebasedemo.R
+import com.jesusrojo.firebasedemo.util.DebugHelp
 import com.jesusrojo.firebasedemo.util.GoogleUtil
 
 class MessagingHelp(
@@ -56,7 +57,7 @@ class MessagingHelp(
             for (key in it.keySet()) {
                 val value = activity.intent.extras?.get(key)
                 val msg = "Key: $key Value: $value"
-                Log.d(myTag, msg)
+                DebugHelp.l(myTag, msg)
                 listener?.invoke(msg)
             }
         }
@@ -66,7 +67,7 @@ class MessagingHelp(
     fun getRegToken() {
         Firebase.messaging.token.addOnCompleteListener(OnCompleteListener { task ->
             if (!task.isSuccessful) {
-                Log.d(myTag, "Fetching FCM registration token failed", task.exception)
+               DebugHelp.l(myTag, "Fetching FCM registration token failed "+ task.exception)
                 return@OnCompleteListener
             }
             val token = task.result  // Get new FCM registration token
@@ -77,7 +78,7 @@ class MessagingHelp(
     }
 
     internal fun subscribeToTopic() {
-        Log.d(myTag, "subscribeToTopic")
+       DebugHelp.l(myTag, "subscribeToTopic")
         Firebase.messaging.subscribeToTopic("weather")
             .addOnCompleteListener { task ->
                 var msg = activity.getString(R.string.msg_subscribed)
@@ -89,7 +90,7 @@ class MessagingHelp(
     }
 
     private fun logAndToast(msg: String) {
-        Log.d(myTag, msg)
+       DebugHelp.l(myTag, msg)
         Toast.makeText(activity.applicationContext, msg, Toast.LENGTH_SHORT).show()
         listener?.invoke(msg)
     }
